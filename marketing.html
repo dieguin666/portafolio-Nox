@@ -592,6 +592,27 @@ footer{
     goTo(index + 1);
   });
 
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  track.addEventListener('touchstart',(e)=>{
+    touchStartX = e.changedTouches[0].screenX;
+  }, false);
+
+  track.addEventListener('touchend',(e)=>{
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+  }, false);
+
+  function handleSwipe(){
+    if(touchStartX - touchEndX > 50){
+      goTo(index + 1);
+    }
+    if(touchEndX - touchStartX > 50){
+      goTo(index - 1);
+    }
+  }
+
   let autoplay = setInterval(()=>{
     goTo(
       (index + 1) % items.length
