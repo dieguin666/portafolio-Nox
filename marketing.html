@@ -581,6 +581,18 @@ footer{
         );
       });
 
+    // Pause all videos and play the active one (if any)
+    items.forEach((it, idx) => {
+      const v = it.querySelector('video');
+      if (v && typeof v.pause === 'function') {
+        if (idx === index) {
+          v.play().catch(()=>{});
+        } else {
+          v.pause();
+          try{ v.currentTime = 0; }catch(e){}
+        }
+      }
+    });
   }
 
   function goTo(i){
@@ -623,29 +635,11 @@ footer{
     }
   }
 
-  let autoplay = setInterval(()=>{
-    goTo(
-      (index + 1) % items.length
-    );
-  },4000);
-
-  carousel.addEventListener('mouseenter',()=>{
-    clearInterval(autoplay);
-  });
-
-  carousel.addEventListener('mouseleave',()=>{
-
-    autoplay = setInterval(()=>{
-      goTo(
-        (index + 1) % items.length
-      );
-    },4000);
-
-  });
+  // Disabled automatic sliding: only change slides by user interaction
+  // Ensure videos are correctly paused/played on slide change
 
   createDots();
-
-  window.addEventListener('load',update);
+  window.addEventListener('load',()=>{ update(); });
   window.addEventListener('resize',update);
 
 })();
@@ -904,6 +898,19 @@ footer{
 
             });
 
+        // Pause all videos and play the active one (if any)
+        items.forEach((it, idx) => {
+          const v = it.querySelector('video');
+          if (v && typeof v.pause === 'function') {
+            if (idx === index) {
+              v.play().catch(()=>{});
+            } else {
+              v.pause();
+              try{ v.currentTime = 0; }catch(e){}
+            }
+          }
+        });
+
     }
 
     function goTo(i){
@@ -946,35 +953,11 @@ footer{
         }
     }
 
-    let autoplay = setInterval(()=>{
-
-        goTo(
-            (index + 1) % items.length
-        );
-
-    },5000);
-
-    carousel.addEventListener('mouseenter',()=>{
-
-        clearInterval(autoplay);
-
-    });
-
-    carousel.addEventListener('mouseleave',()=>{
-
-        autoplay = setInterval(()=>{
-
-            goTo(
-                (index + 1) % items.length
-            );
-
-        },5000);
-
-    });
+    // Disabled automatic sliding: only change slides by user interaction
 
     createDots();
 
-    window.addEventListener('load',update);
+    window.addEventListener('load',()=>{ update(); });
     window.addEventListener('resize',update);
 
 })();
