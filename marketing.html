@@ -452,7 +452,9 @@ footer{
   }
 
   .carousel-btn{
-    display:none;
+    width:40px;
+    height:40px;
+    font-size:20px;
   }
 }
 </style>
@@ -766,7 +768,9 @@ footer{
 @media(max-width:480px){
 
     .carousel-btn{
-        display:none;
+        width:40px;
+        height:40px;
+        font-size:20px;
     }
 
     .carousel-dots{
@@ -912,6 +916,27 @@ footer{
     next.addEventListener('click',()=>{
         goTo(index + 1);
     });
+
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart',(e)=>{
+        touchStartX = e.changedTouches[0].screenX;
+    }, false);
+
+    track.addEventListener('touchend',(e)=>{
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+    }, false);
+
+    function handleSwipe(){
+        if(touchStartX - touchEndX > 50){
+            goTo(index + 1);
+        }
+        if(touchEndX - touchStartX > 50){
+            goTo(index - 1);
+        }
+    }
 
     let autoplay = setInterval(()=>{
 
