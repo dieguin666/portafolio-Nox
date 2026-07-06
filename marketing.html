@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="portafolio/img/negativo logo.png" type="image/x-icon">
+<title>Diego Andrés Patiño — Marketing</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
+ 
+:root{
+  --ink:#0E1116;
+  --ink-2:#161B22;
+  --paper:#EDEFF2;
+  --nexus:#113558;
+  --barbaro:#162E48;
+  --poison:#5C6E45;
+  --line: rgba(237,239,242,0.14);
+  --line-strong: rgba(237,239,242,0.28);
+  --accent:#EDEFF2;
+}
+ 
+*{margin:0;padding:0;box-sizing:border-box;}
+ 
+html{scroll-behavior:smooth;}
+ 
+body{
+  background:var(--ink);
+  color:var(--paper);
+  font-family:'IBM Plex Sans', sans-serif;
+  font-weight:400;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+ 
+h1,h2,h3{
+  font-family:'Space Grotesk', sans-serif;
+  font-weight:700;
+  letter-spacing:-0.01em;
+}
+ 
+.mono{
+  font-family:'IBM Plex Mono', monospace;
+  letter-spacing:0.02em;
+}
+ 
+a{color:inherit;}
+ 
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:22px 6vw;
+  mix-blend-mode:difference;
+}
+.nav .mark{font-family:'Space Grotesk'; font-weight:700; font-size:15px; letter-spacing:0.05em;}
+.nav .links{display:flex; gap:28px; font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:0.05em; text-transform:uppercase;}
+.nav .links a{text-decoration:none; opacity:0.75; transition:opacity .2s;}
+.nav .links a:hover{opacity:1;}
+ 
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:flex; flex-direction:column; justify-content:center;
+  padding:0 6vw;
+  overflow:hidden;
+}
+.blueprint-bg{
+  position:absolute; inset:0; z-index:0; opacity:0.55;
+}
+.hero-inner{position:relative; z-index:2; max-width:1100px;}
+.eyebrow{
+  font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:0.15em; text-transform:uppercase;
+  color:var(--paper); opacity:0.6; margin-bottom:22px; display:flex; align-items:center; gap:12px;
+}
+.eyebrow .dot{width:6px; height:6px; background:#8FA876; border-radius:50%; display:inline-block;}
+.hero h1{
+  font-size:clamp(40px, 7.2vw, 96px);
+  line-height:0.98;
+  margin-bottom:28px;
+}
+.hero h1 span{display:block;}
+.hero h1 .thin{font-weight:400; opacity:0.55; font-size:0.55em;}
+.hero p.lede{
+  max-width:560px; font-size:clamp(15px,1.6vw,18px); opacity:0.75; margin-bottom:40px;
+}
+.hero .cta-row{display:flex; gap:16px; flex-wrap:wrap; align-items:center;}
+.btn{
+  font-family:'IBM Plex Mono'; font-size:13px; text-transform:uppercase; letter-spacing:0.08em;
+  border:1px solid var(--line-strong); padding:14px 26px; text-decoration:none;
+  transition:background .25s, color .25s;
+}
+.btn.primary{background:var(--paper); color:var(--ink); border-color:var(--paper);}
+.btn.primary:hover{background:transparent; color:var(--paper);}
+.btn.ghost:hover{background:var(--paper); color:var(--ink);}
+ 
+.scroll-cue{
+  position:absolute; bottom:36px; left:6vw; z-index:2;
+  font-family:'IBM Plex Mono'; font-size:11px; opacity:0.5; letter-spacing:0.1em;
+  display:flex; align-items:center; gap:10px;
+}
+.scroll-cue .bar{width:1px; height:34px; background:var(--line-strong); position:relative; overflow:hidden;}
+.scroll-cue .bar::after{content:''; position:absolute; top:0; left:0; width:100%; height:40%; background:var(--paper); animation:scrollcue 1.8s ease-in-out infinite;}
+@keyframes scrollcue{0%{top:-40%;} 100%{top:100%;}}
+ 
+.specbar{
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  display:flex; flex-wrap:wrap;
+  font-family:'IBM Plex Mono'; font-size:12px; letter-spacing:0.05em; text-transform:uppercase;
+}
+.specbar div{
+  flex:1 1 200px; padding:16px 6vw; border-right:1px solid var(--line); opacity:0.75;
+}
+.specbar div:last-child{border-right:none;}
+ 
+.section-label{
+  padding:100px 6vw 40px;
+  max-width:1300px; margin:0 auto;
+}
+.section-label .kicker{font-family:'IBM Plex Mono'; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; opacity:0.5;}
+.section-label h2{font-size:clamp(28px,4vw,44px); margin-top:10px; max-width:720px;}
+ 
+.project{
+  max-width:1300px; margin:0 auto; padding:0 6vw 90px;
+  opacity:0; transform:translateY(24px);
+  transition:opacity .8s ease, transform .8s ease;
+}
+.project.in{opacity:1; transform:translateY(0);}
+ 
+.spec-table{
+  display:grid; grid-template-columns:1.2fr 1.6fr 0.6fr;
+  border:1px solid var(--line-strong);
+  font-family:'IBM Plex Mono'; font-size:12px; text-transform:uppercase; letter-spacing:0.05em;
+  margin-bottom:28px;
+}
+.spec-table div{padding:12px 16px; border-right:1px solid var(--line-strong);}
+.spec-table div:last-child{border-right:none;}
+.spec-table .label{opacity:0.5; font-size:10px; display:block; margin-bottom:4px;}
+ 
+.project-grid{
+  display:grid; grid-template-columns:1.1fr 0.9fr; gap:22px; align-items:start;
+}
+.project.alt .project-grid{grid-template-columns:0.9fr 1.1fr;}
+.project.alt .project-grid .media-main{order:2;}
+.project.alt .project-grid .project-copy{order:1;}
+ 
+.media-main, .media-side{
+  width:100%;
+  max-width:560px;
+  justify-self:center;
+}
+.media-main img, .media-main video,
+.media-side img, .media-side video{
+  width:100%; height:auto; display:block; border:1px solid var(--line);
+}
+.media-side{display:grid; grid-template-columns:1fr; gap:12px;}
+.media-side.media-row-2{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:50px;
+  width:100%;
+  max-width:100%;
+  justify-items:center;
+}
+.media-side.media-row-2 video,
+.media-side.media-row-2 img{
+  max-width:480px;
+  width:100%;
+  height:auto;
+}
+.carousel{
+  position:relative;
+  max-width:1000px;
+  margin:14px auto;
+  overflow:hidden;
+}
+.carousel-track{
+  display:flex;
+  transition:transform 400ms ease;
+  gap:50px;
+  padding:20px 0;
+  align-items:center;
+}
+.carousel-item{ 
+  flex:0 0 auto;
+  max-width:480px;
+  width:100%;
+  box-sizing:border-box;
+}
+.carousel-item img{display:block; width:100%; height:auto; border:1px solid var(--line);}
+.carousel-btn{
+  position:absolute; top:50%; transform:translateY(-50%); background:transparent; border:0; color:var(--paper); font-size:40px; padding:8px 12px; cursor:pointer; opacity:0.85;
+}
+.carousel-btn.prev{ left:8px; }
+.carousel-btn.next{ right:8px; }
+.carousel-dots{ display:flex; gap:8px; justify-content:center; margin-top:12px; }
+.carousel-dot{ width:10px; height:10px; border-radius:50%; background:transparent; border:1px solid var(--line); cursor:pointer; }
+.carousel-dot.active{ background:var(--paper); border-color:var(--paper); }
+.tag{
+  font-family:'IBM Plex Mono'; font-size:11px; text-transform:uppercase; letter-spacing:0.05em;
+  border:1px solid var(--line-strong); padding:6px 12px; opacity:0.75;
+}
+ 
+.skills{
+  border-top:1px solid var(--line); border-bottom:1px solid var(--line);
+  padding:60px 6vw; max-width:1300px; margin:0 auto;
+}
+.skills .kicker{font-family:'IBM Plex Mono'; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; opacity:0.5; margin-bottom:24px;}
+.skills-grid{display:flex; flex-wrap:wrap; gap:12px;}
+.skill-pill{
+  font-family:'IBM Plex Mono'; font-size:13px; padding:10px 18px; border:1px solid var(--line-strong);
+}
+ 
+.contact{
+  padding:120px 6vw 60px; max-width:1300px; margin:0 auto;
+}
+.contact .kicker{font-family:'IBM Plex Mono'; font-size:12px; text-transform:uppercase; letter-spacing:0.15em; opacity:0.5; margin-bottom:20px;}
+.contact h2{font-size:clamp(34px,6vw,72px); max-width:820px; margin-bottom:44px;}
+.contact-links{display:flex; flex-wrap:wrap; gap:32px; font-family:'IBM Plex Mono'; font-size:14px; margin-bottom:80px;}
+.contact-links a{text-decoration:none; border-bottom:1px solid var(--line-strong); padding-bottom:4px;}
+.contact-links a:hover{border-color:var(--paper);}
+ 
+footer{
+  display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:16px;
+  padding-top:28px; border-top:1px solid var(--line);
+  font-family:'IBM Plex Mono'; font-size:11px; opacity:0.5; text-transform:uppercase; letter-spacing:0.06em;
+}
+ 
+@media (max-width:820px){
+  .project-grid, .project.alt .project-grid{grid-template-columns:1fr;}
+  .project.alt .project-grid .media-main, .project.alt .project-grid .project-copy{order:0;}
+  .spec-table{grid-template-columns:1fr;}
+  .spec-table div{border-right:none; border-bottom:1px solid var(--line-strong);}
+  .spec-table div:last-child{border-bottom:none;}
+  .media-row-2{grid-template-columns:1fr;}
+  .specbar div{border-right:none; border-bottom:1px solid var(--line);}
+}
+ 
+@media (prefers-reduced-motion: reduce){
+  .project{transition:none; opacity:1; transform:none;}
+  .scroll-cue .bar::after{animation:none;}
+}
+</style>
+</head>
+<body>
+ 
+<nav class="nav">
+  <div class="mark">NOX STUDIO</div>
+  <div class="links">
+    <a href="index.html">Portfolio</a>
+    <a href="#work">Marketing</a>
+    <a href="#contact">Contacto</a>
+  </div>
+</nav>
+ 
+<section class="hero">
+  <svg class="blueprint-bg" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#EDEFF2" stroke-width="1" opacity="0.16">
+      <line x1="0" y1="0" x2="1200" y2="800"/>
+      <line x1="0" y1="160" x2="1040" y2="800"/>
+      <line x1="0" y1="320" x2="880" y2="800"/>
+      <line x1="160" y1="0" x2="1200" y2="640"/>
+      <line x1="320" y1="0" x2="1200" y2="480"/>
+      <line x1="1200" y1="0" x2="0" y2="800"/>
+      <line x1="1200" y1="160" x2="160" y2="800"/>
+      <line x1="1200" y1="320" x2="320" y2="800"/>
+      <line x1="1040" y1="0" x2="0" y2="640"/>
+      <line x1="880" y1="0" x2="0" y2="480"/>
+      <line x1="0" y1="240" x2="1200" y2="240"/>
+      <line x1="0" y1="560" x2="1200" y2="560"/>
+    </g>
+  </svg>
+ 
+  <div class="hero-inner">
+    <div class="eyebrow"><span class="dot"></span> Proyectos de marketing y campañas digitales</div>
+    <h1>
+      <span>MARKETING</span>
+      <span>CONSTRUCTIVO</span>
+      <span class="thin">Estrategia visual y contenidos con base de marca.</span>
+    </h1>
+    <p class="lede">Esta página muestra el trabajo de marketing que complementa mis identidades de marca: campañas, piezas para redes y diseño estratégico pensado para convertir. Todo con la misma estética consistente que define al estudio.</p>
+    <div class="cta-row">
+      <a href="#work" class="btn primary">Ver campañas</a>
+      <a href="index.html" class="btn ghost">Volver al portfolio</a>
+    </div>
+  </div>
+ 
+  <div class="scroll-cue"><div class="bar"></div> DESPLÁZATE</div>
+</section>
+ 
+<div class="specbar">
+  <div>Marca — NOX STUDIO</div>
+  <div>Especialidad — Marketing visual</div>
+  <div>Formatos — Reels · Stories · Flyers · Ads</div>
+  <div>Objetivo — Visibilidad · Conversión</div>
+</div>
+ 
+<div class="section-label" id="work">
+  <div class="kicker">Marketing digital — 03 casos</div>
+  <h2>Campañas que amplifican la identidad y mantienen el tono visual de cada proyecto.</h2>
+</div>
+ 
+<div class="project p-poison">
+  <div class="spec-table">
+    <div><span class="label">Cliente</span>GREEN POISON</div>
+    <div><span class="label">Formato</span>Campaña en redes</div>
+    <div><span class="label">Año</span>2025</div>
+  </div>
+  <div class="project-grid">
+    <div class="media-main">
+      <img src="portafolio/img/Envuélvete en estilo y comodidad con nuestro nuevo diseño de hoodie de Green Poison. ¡Prepárate .jpg" alt="Campaña de marketing Green Poison">
+    </div>
+    <div class="project-copy">
+      <h3>Un lanzamiento visual que conectó con la comunidad</h3>
+      <p>Diseñé la campaña de lanzamiento para la línea de hoodies de Green Poison, con piezas para Instagram y Facebook enfocadas en posicionar la marca como parte del estilo urbano. El contenido refuerza el tono rebelde y la propuesta de valor: vestir la identidad.</p>
+      <div class="tag-row">
+        <span class="tag">Contenido social</span>
+        <span class="tag">Lanzamiento de producto</span>
+        <span class="tag">Estética urbana</span>
+      </div>
+    </div>
+  </div>
+  <div class="media-side media-row-2" style="margin-top:14px;">
+    <video src="portafolio/img/green-poison-campana.mp4" autoplay muted loop playsinline></video>
+    <video src="portafolio/img/Download.mp4" autoplay muted loop playsinline></video>
+  </div>
+</div>
+ 
+<div class="project alt p-nox">
+  <div class="spec-table">
+    <div><span class="label">Cliente</span>NOX TATTOO</div>
+    <div><span class="label">Formato</span>Flyer y campaña</div>
+    <div><span class="label">Año</span>2025</div>
+  </div>
+  <div class="project-grid">
+    <div class="media-main">
+      <img src="/portafolio/img/negativo logo.png" alt="Flyer promocional de Nox Tattoo">
+    </div>
+    <div class="project-copy">
+      <h3>Contenido social diseñado para vender el estilo gótico del estudio</h3>
+      <p>Desarrollé un set de activos para redes sociales que combina un flyer digital con dos videos cortos pensados para Reels y anuncios. Todo el contenido fue creado para amplificar la identidad de Nox Tattoo en Instagram y TikTok, con narrativa visual, ritmo de scroll y CTA claros que hablan a la audiencia de tatuajes y estética oscura.</p>
+      <div class="tag-row">
+        <span class="tag">Contenido social</span>
+        <span class="tag">Reels y anuncios</span>
+        <span class="tag">Estrategia de redes</span>
+      </div>
+    </div>
+  </div>
+<style>
+.carousel{
+  position:relative;
+  width:100%;
+  overflow:hidden;
+  margin-top:30px;
+}
+
+.carousel-track{
+  display:flex;
+  gap:50px;
+  transition:transform .5s ease;
+}
+
+.carousel-item{
+  flex:0 0 100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+.carousel-item img,
+.carousel-item video{
+  width:100%;
+  max-width:420px;
+  height:750px;
+  object-fit:cover;
+  border-radius:20px;
+  border:1px solid var(--line);
+  display:block;
+  box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.carousel-btn{
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:50px;
+  height:50px;
+  border:none;
+  border-radius:50%;
+  background:rgba(0,0,0,.7);
+  color:white;
+  font-size:28px;
+  cursor:pointer;
+  z-index:10;
+}
+
+.carousel-btn:hover{
+  background:rgba(0,0,0,.9);
+}
+
+.carousel-btn.prev{
+  left:20px;
+}
+
+.carousel-btn.next{
+  right:20px;
+}
+
+.carousel-dots{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin-top:20px;
+}
+
+.carousel-dot{
+  width:12px;
+  height:12px;
+  border-radius:50%;
+  border:none;
+  background:#555;
+  cursor:pointer;
+}
+
+.carousel-dot.active{
+  background:white;
+}
+
+@media(max-width:768px){
+
+  .carousel-track{
+    gap:20px;
+  }
+
+  .carousel-item img,
+  .carousel-item video{
+    max-width:100%;
+    height:550px;
+  }
+
+  .carousel-btn{
+    width:40px;
+    height:40px;
+    font-size:22px;
+  }
+}
+
+@media(max-width:480px){
+
+  .carousel-item img,
+  .carousel-item video{
+    height:450px;
+  }
+
+  .carousel-btn{
+    display:none;
+  }
+}
+</style>
+<div class="carousel" aria-label="Galería Nox Studio">
+
+  <div class="carousel-track">
+
+    <div class="carousel-item">
+      <video
+        src="portafolio/img/guerrero.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata">
+      </video>
+    </div>
+
+    <div class="carousel-item">
+      <video
+        src="portafolio/img/notaste.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata">
+      </video>
+    </div>
+
+    <div class="carousel-item">
+      <video
+        src="portafolio/img/ayuda.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata">
+      </video>
+    </div>
+
+    <div class="carousel-item">
+      <video
+        src="portafolio/img/maquina.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+        preload="metadata">
+      </video>
+    </div>
+
+  </div>
+
+  <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+  <button class="carousel-btn next" aria-label="Siguiente">›</button>
+
+  <div class="carousel-dots"></div>
+
+</div>
+<script>
+(function(){
+
+  const carousel = document.currentScript.previousElementSibling;
+
+  const track = carousel.querySelector('.carousel-track');
+  const items = Array.from(track.children);
+
+  const prev = carousel.querySelector('.prev');
+  const next = carousel.querySelector('.next');
+  const dotsContainer = carousel.querySelector('.carousel-dots');
+
+  let index = 0;
+
+  function createDots(){
+
+    dotsContainer.innerHTML = '';
+
+    items.forEach((item,i)=>{
+
+      const dot = document.createElement('button');
+
+      dot.classList.add('carousel-dot');
+
+      if(i===0){
+        dot.classList.add('active');
+      }
+
+      dot.addEventListener('click',()=>{
+        goTo(i);
+      });
+
+      dotsContainer.appendChild(dot);
+
+    });
+
+  }
+
+  function update(){
+
+    const gap = parseInt(
+      getComputedStyle(track).gap
+    ) || 0;
+
+    const itemWidth =
+      items[0].offsetWidth + gap;
+
+    track.style.transform =
+      `translateX(-${index * itemWidth}px)`;
+
+    dotsContainer
+      .querySelectorAll('.carousel-dot')
+      .forEach((dot,i)=>{
+        dot.classList.toggle(
+          'active',
+          i===index
+        );
+      });
+
+  }
+
+  function goTo(i){
+
+    index = Math.max(
+      0,
+      Math.min(i, items.length - 1)
+    );
+
+    update();
+
+  }
+
+  prev.addEventListener('click',()=>{
+    goTo(index - 1);
+  });
+
+  next.addEventListener('click',()=>{
+    goTo(index + 1);
+  });
+
+  let autoplay = setInterval(()=>{
+    goTo(
+      (index + 1) % items.length
+    );
+  },4000);
+
+  carousel.addEventListener('mouseenter',()=>{
+    clearInterval(autoplay);
+  });
+
+  carousel.addEventListener('mouseleave',()=>{
+
+    autoplay = setInterval(()=>{
+      goTo(
+        (index + 1) % items.length
+      );
+    },4000);
+
+  });
+
+  createDots();
+
+  window.addEventListener('load',update);
+  window.addEventListener('resize',update);
+
+})();
+</script>
+</div>
+
+<div class="project alt p-nox">
+  <div class="spec-table">
+    <div><span class="label">Cliente</span>NOX TATTOO</div>
+    <div><span class="label">Formato</span>Flyer y campaña</div>
+    <div><span class="label">Año</span>2025</div>
+  </div>
+  <div class="project-grid">
+    <div class="media-main">
+      <img src="/portafolio/img/448763510_996628628686239_8472630934645325091_n..jpg" " alt="Flyer promocional de Nox Tattoo">
+    </div>
+    <div class="project-copy">
+      <h3>Contenido social diseñado para vender el estilo gótico del estudio</h3>
+      <p>Desarrollé un set de activos para redes sociales que combina un flyer digital con dos videos cortos pensados para Reels y anuncios. Todo el contenido fue creado para amplificar la identidad de Nox Tattoo en Instagram y TikTok, con narrativa visual, ritmo de scroll y CTA claros que hablan a la audiencia de tatuajes y estética oscura.</p>
+      <div class="tag-row">
+        <span class="tag">Contenido social</span>
+        <span class="tag">Reels y anuncios</span>
+        <span class="tag">Estrategia de redes</span>
+      </div>
+    </div>
+  </div>
+<style>
+.carousel{
+    position:relative;
+    width:100%;
+    overflow:hidden;
+    margin-top:30px;
+}
+
+.carousel-track{
+    display:flex;
+    gap:30px;
+    transition:transform .5s ease;
+}
+
+.carousel-item{
+    flex:0 0 100%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.carousel-item img,
+.carousel-item video{
+    width:100%;
+    max-width:1100px;
+    height:600px;
+    object-fit:cover;
+    display:block;
+    border-radius:20px;
+    border:1px solid var(--line);
+    box-shadow:0 20px 60px rgba(0,0,0,.35);
+}
+
+.carousel-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:55px;
+    height:55px;
+    border:none;
+    border-radius:50%;
+    background:rgba(0,0,0,.7);
+    color:#fff;
+    font-size:32px;
+    cursor:pointer;
+    z-index:10;
+    transition:.3s;
+}
+
+.carousel-btn:hover{
+    background:rgba(0,0,0,.9);
+}
+
+.carousel-btn.prev{
+    left:20px;
+}
+
+.carousel-btn.next{
+    right:20px;
+}
+
+.carousel-dots{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    margin-top:25px;
+}
+
+.carousel-dot{
+    width:12px;
+    height:12px;
+    border:none;
+    border-radius:50%;
+    background:#555;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.carousel-dot.active{
+    background:#fff;
+    transform:scale(1.2);
+}
+
+@media(max-width:768px){
+
+    .carousel-track{
+        gap:20px;
+    }
+
+    .carousel-item img,
+    .carousel-item video{
+        max-width:100%;
+    }
+
+    .carousel-btn{
+        width:42px;
+        height:42px;
+        font-size:24px;
+    }
+}
+
+@media(max-width:480px){
+
+    .carousel-btn{
+        display:none;
+    }
+
+    .carousel-dots{
+        margin-top:15px;
+    }
+}
+</style>
+<div class="carousel" aria-label="Galería Nox Studio">
+
+    <div class="carousel-track">
+
+        <div class="carousel-item">
+            <video
+                src="portafolio/img/ropa.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata">
+            </video>
+        </div>
+
+        <div class="carousel-item">
+            <video
+                src="portafolio/img/video1nox.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata">
+            </video>
+        </div>
+
+        <div class="carousel-item">
+            <video
+                src="portafolio/img/identidad.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata">
+            </video>
+        </div>
+
+        <div class="carousel-item">
+            <video
+                src="portafolio/img/letras.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+                preload="metadata">
+            </video>
+        </div>
+
+    </div>
+
+    <button class="carousel-btn prev" aria-label="Anterior">‹</button>
+
+    <button class="carousel-btn next" aria-label="Siguiente">›</button>
+
+    <div class="carousel-dots"></div>
+
+</div>
+<script>
+(function(){
+
+    const carousel = document.currentScript.previousElementSibling;
+
+    const track = carousel.querySelector('.carousel-track');
+    const items = Array.from(track.children);
+
+    const prev = carousel.querySelector('.prev');
+    const next = carousel.querySelector('.next');
+
+    const dotsContainer = carousel.querySelector('.carousel-dots');
+
+    let index = 0;
+
+    function createDots(){
+
+        dotsContainer.innerHTML = '';
+
+        items.forEach((item,i)=>{
+
+            const dot = document.createElement('button');
+
+            dot.classList.add('carousel-dot');
+
+            if(i === 0){
+                dot.classList.add('active');
+            }
+
+            dot.addEventListener('click',()=>{
+                goTo(i);
+            });
+
+            dotsContainer.appendChild(dot);
+
+        });
+
+    }
+
+    function update(){
+
+        const gap =
+            parseInt(getComputedStyle(track).gap) || 0;
+
+        const itemWidth =
+            items[0].offsetWidth + gap;
+
+        track.style.transform =
+            `translateX(-${index * itemWidth}px)`;
+
+        dotsContainer
+            .querySelectorAll('.carousel-dot')
+            .forEach((dot,i)=>{
+
+                dot.classList.toggle(
+                    'active',
+                    i === index
+                );
+
+            });
+
+    }
+
+    function goTo(i){
+
+        index = Math.max(
+            0,
+            Math.min(i, items.length - 1)
+        );
+
+        update();
+
+    }
+
+    prev.addEventListener('click',()=>{
+        goTo(index - 1);
+    });
+
+    next.addEventListener('click',()=>{
+        goTo(index + 1);
+    });
+
+    let autoplay = setInterval(()=>{
+
+        goTo(
+            (index + 1) % items.length
+        );
+
+    },5000);
+
+    carousel.addEventListener('mouseenter',()=>{
+
+        clearInterval(autoplay);
+
+    });
+
+    carousel.addEventListener('mouseleave',()=>{
+
+        autoplay = setInterval(()=>{
+
+            goTo(
+                (index + 1) % items.length
+            );
+
+        },5000);
+
+    });
+
+    createDots();
+
+    window.addEventListener('load',update);
+    window.addEventListener('resize',update);
+
+})();
+</script>
+</div>
+ 
+<div class="skills" id="skills">
+  <div class="kicker">Habilidades clave</div>
+  <div class="skills-grid">
+    <span class="skill-pill">Copy para redes</span>
+    <span class="skill-pill">Branding estratégico</span>
+    <span class="skill-pill">Diseño de anuncios</span>
+    <span class="skill-pill">Edición de video</span>
+    <span class="skill-pill">Gestión de campaña</span>
+    <span class="skill-pill">Fotografía de producto</span>
+    <span class="skill-pill">Contenido para stories</span>
+    <span class="skill-pill">Análisis de resultados</span>
+  </div>
+</div>
+ 
+<div class="contact" id="contact">
+  <div class="kicker">Marketing con propósito</div>
+  <h2>Si tu marca necesita una voz visual que convierta, podemos construirla juntos.</h2>
+  <div class="contact-links">
+    <a href="mailto:patinodiego674@gmail.com">patinodiego674@gmail.com</a>
+    <a href="tel:+573244035242">+57 324 403 5242</a>
+    <span>Aipe, Huila — Colombia</span>
+  </div>
+  <footer>
+    <span>© 2026 Diego Andrés Patiño — Nox Studio</span>
+    <span>Diseño de este portafolio: Nox Studio</span>
+  </footer>
+</div>
+ 
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var items = document.querySelectorAll('.project');
+  var obs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){ e.target.classList.add('in'); }
+    });
+  }, {threshold:0.15});
+  items.forEach(function(i){obs.observe(i);});
+});
+</script>
+ 
+</body>
+</html>
